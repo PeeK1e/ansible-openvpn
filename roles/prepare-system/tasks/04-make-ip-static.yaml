@@ -1,0 +1,11 @@
+---
+- name: Retrieve Interface Name
+  raw: "ip -4 -f inet -br link | head -n2 | tail +2 | cut -f 1 -d \" \""
+  register: interface_name
+
+- name: Set Static IP
+  template:
+    src: etc/network/interfaces
+    dest: /etc/network/interfaces
+    owner: root
+    mode: 0644

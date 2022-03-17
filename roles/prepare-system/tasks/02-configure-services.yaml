@@ -1,0 +1,12 @@
+---
+- name: Copy SSH config
+  template:
+    src: ssh.conf.j2
+    dest: /etc/ssh/sshd_config.d/ssh_config
+    owner: root
+    mode: 0644
+
+- name: Allow SSH ufw
+  community.general.ufw:
+    rule: allow
+    port: "{{ network.ssh_port }}"

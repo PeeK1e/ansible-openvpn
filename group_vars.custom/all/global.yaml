@@ -1,0 +1,5 @@
+network:
+  static_ip: ""
+  gateway: ""
+  hostname: ""
+ssh_port: ""

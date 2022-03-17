@@ -1,0 +1,25 @@
+---
+- name: UFW logging enable
+  community.general.ufw:
+    logging: 'on'
+
+- name: Reload sshd
+  systemd:
+    name: sshd
+    enabled: yes
+    state: reloaded
+
+- name: Update SSH Port
+  set_fact:
+    ansible_port: "{{ ssh_port }}"
+
+- name: Systemd enable UFW
+  systemd:
+    name: ufw
+    enabled: yes
+    state: restarted
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: deny

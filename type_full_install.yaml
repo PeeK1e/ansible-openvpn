@@ -1,0 +1,23 @@
+---
+- name: Prepare System
+  hosts: VPN
+  become: true
+  roles:
+    - role: prepare-system
+      action: 00-update-system
+    - role: prepare-system
+      action: 01-install-software
+    - role: prepare-system
+      action: 02-configure-services
+    - role: prepare-system
+      action: 03-reload-services
+    - role: prepare-system
+      action: 04-make-ip-static
+    - role: prepare-system
+      action: 05-reboot-machines
+
+- name: Install Openvpn
+  hosts: VPN
+  roles:
+    - role: install-openvpn
+      action: 00-install-openvpn

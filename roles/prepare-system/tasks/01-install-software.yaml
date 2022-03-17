@@ -1,0 +1,5 @@
+---
+- name: Install Software
+  apt:
+    name:
+      - "ufw"

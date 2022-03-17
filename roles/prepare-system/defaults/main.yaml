@@ -1,0 +1,5 @@
+network:
+  static_ip: 192.168.178.17
+  gateway: 192.168.178.1
+  hostname: "OpenVPNServer"
+ssh_port: 2222

@@ -1,2 +1,2 @@
 [VPN]
-vpn-host ansible_host=192.168.178.15 ansible_user=pi
+vpn-host ansible_host=192.168.178.135 ansible_user=user

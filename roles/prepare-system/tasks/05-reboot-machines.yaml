@@ -1,0 +1,11 @@
+---
+- name: Reboot Machine
+  reboot:
+
+- name: Set new Machine IP locally
+  set_fact:
+    ansible_host: "{{ network.static_ip }}"
+
+- name: Wait for Machine to be back Online
+  pause:
+    minutes: 2

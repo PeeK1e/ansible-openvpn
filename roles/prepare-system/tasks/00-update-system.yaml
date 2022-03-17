@@ -1,0 +1,9 @@
+---
+- name: Check System
+  fail:
+    msg: Only Debian is supported by this Playbook
+  when: ansible_distribution != 'Debian'
+
+- name: Update System
+  apt:
+    upgrade: full

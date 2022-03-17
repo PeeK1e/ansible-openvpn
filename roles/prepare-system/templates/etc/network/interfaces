@@ -1,0 +1,10 @@
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug enp0s3
+iface enp0s3 inet static
+    address {{ network.static_ip }}
+    netmask {{ network.netmask }}
+    gateway {{ network.gateway }}
