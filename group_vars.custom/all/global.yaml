@@ -2,4 +2,5 @@ network:
   static_ip: ""
   gateway: ""
   hostname: ""
+  netmask: ""
 ssh_port: ""

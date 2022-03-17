@@ -1,6 +1,8 @@
 ---
 - name: Reboot Machine
   reboot:
+    reboot_timeout: 5
+  ignore_errors: true
 
 - name: Set new Machine IP locally
   set_fact:

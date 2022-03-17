@@ -1,0 +1,6 @@
+- name: If python is not installed, install it
+  hosts: VPN
+  become: true
+  gather_facts: no
+  pre_tasks:
+    - raw: test -e /bin/python3 || apt-get install python3 -y

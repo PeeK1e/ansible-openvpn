@@ -6,4 +6,5 @@
 
 - name: Update System
   apt:
+    update_cache: yes
     upgrade: full
