@@ -1,0 +1,19 @@
+---
+- name: Copy Script
+  template:
+    src: create-client.sh
+    dest: /tmp/create-client.sh
+    owner: root
+    mode: 0744
+
+- name: Create Client Certificates
+  raw: /bin/bash /tmp/create-client.sh "{{ item }}"
+  loop: "{{ clients }}"
+  when: clients is defined and clients | length > 0
+
+- name: Retrieve Files
+  fetch:
+    dest: openvpn-clients
+    src: /root/{{ item }}.ovpn
+  loop: "{{ clients }}"
+  when: clients is defined and clients | length > 0

@@ -16,4 +16,5 @@ vpn:
   network:
     network: 10.8.0.0
     netmask: 255.255.255.0
+clients: []
 

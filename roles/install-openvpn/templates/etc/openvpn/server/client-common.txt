@@ -1,7 +1,11 @@
 client
 dev tun
 proto {{ vpn.protocol }}
-remote {% if vpn.public_hostname is defined and vpn.public_hostname | length > 0 %} {{ vpn.public_hostname }} {% else %} {{ network.static_ip }} {% endif %} {{ vpn.port }}
+{% if vpn.public_hostname is defined and vpn.public_hostname | length > 0 %}
+remote {{ vpn.public_hostname }} {{ vpn.port }}
+{% else %}
+remote {{ network.static_ip }} {{ vpn.port }}
+{% endif %}
 resolv-retry infinite
 nobind
 persist-key

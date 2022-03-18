@@ -1,1 +1,6 @@
 ---
+- name: Create Client
+  hosts: VPN
+  become: true
+  roles: 
+    - role: configure-client 
