@@ -17,13 +17,15 @@ vpn:
   network:
     network: 10.8.0.0
     netmask: 255.255.255.0
+    gateway: 10.8.0.1
+    dhcp_min: 10.8.0.50
+    dhcp_max: 10.8.0.250
 clients: [] # remove brackets when you add cients to the list
 #  - name: my
-#    ip: 10.8.0.100
+#    ip: 10.8.0.20
 #  - name: name
-#    ip: 10.8.0.150
+#    ip: 10.8.0.49
 #  - name: here
-#    ip: 10.8.0.200
 clients_to_remove: [] # remove brackets when you add cients to the list
 #  - my
 #  - names

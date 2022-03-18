@@ -12,15 +12,26 @@ key server.key
 dh dh.pem
 auth SHA512
 tls-crypt tc.key
+
+# server pool config
+mode server
+tls-server
 topology subnet
-server {{ vpn.network.network }} {{ vpn.network.netmask }}
+push "topology subnet"
+ifconfig {{ vpn.network.gateway }} {{ vpn.network.netmask }}
+ifconfig-pool {{ vpn.network.dhcp_min }} {{ vpn.network.dhcp_max }} {{ vpn.network.netmask }} 
+push "route-gateway {{ vpn.network.gateway }}"
+
+# static ip addresses are here
 client-config-dir ccd
 ifconfig-pool-persist ipp.txt 0
+
 {% if not enable_host_only_vpn %}
 push "redirect-gateway def1 bypass-dhcp"
 push "dhcp-option DNS {{ vpn.primary_dns }}"
 push "dhcp-option DNS {{ vpn.secondary_dns }}"
 {% endif %}
+
 keepalive 10 120
 cipher AES-256-CBC
 user nobody
@@ -29,6 +40,7 @@ persist-key
 persist-tun
 verb 3
 crl-verify crl.pem
+
 {% if vpn.protocol == 'udp' or vpn.protocol == 'UDP' %}
 explicit-exit-notify
 {% endif %}
