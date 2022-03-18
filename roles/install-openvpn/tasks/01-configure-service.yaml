@@ -31,7 +31,6 @@
     dest: /etc/openvpn/server/dh.pem
     owner: root
     mode: 0644
-  when: not pki_files.stat.exists
 
 - name: Create basic OpenVPN Server Config
   template:
@@ -62,10 +61,5 @@
     mode: 0644
   when: not enable_host_only_vpn
 
-- name: Enable systemd iptables rules
-  systemd:
-    name: openvpn-iptables.service
-    enabled: yes
-    state: reloaded
-    daemon_reload: yes
-  when: not enable_host_only_vpn
+- name: Make ccd directory
+  raw: mkdir -p /etc/openvpn/server/ccd

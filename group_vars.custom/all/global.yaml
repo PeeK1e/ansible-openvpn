@@ -17,11 +17,14 @@ vpn:
   network:
     network: 10.8.0.0
     netmask: 255.255.255.0
-clients: []
-#  - my
-#  - names
-#  - here
-clients_to_remove: []
+clients: [] # remove brackets when you add cients to the list
+#  - name: my
+#    ip: 10.8.0.100
+#  - name: name
+#    ip: 10.8.0.150
+#  - name: here
+#    ip: 10.8.0.200
+clients_to_remove: [] # remove brackets when you add cients to the list
 #  - my
 #  - names
 #  - here

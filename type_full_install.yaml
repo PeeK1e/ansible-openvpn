@@ -1,5 +1,5 @@
 ---
-- import_playbook: type_install_base.yaml
+#- import_playbook: type_install_base.yaml
 
 - import_playbook: type_install_openvpn.yaml
 

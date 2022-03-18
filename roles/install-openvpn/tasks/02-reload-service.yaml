@@ -1,5 +1,15 @@
+---
+- name: Enable systemd iptables rules
+  systemd:
+    name: openvpn-iptables.service
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+  when: not enable_host_only_vpn
+
 - name: Restart OpenVPN Server
   systemd:
     name: openvpn-server@server.service
     enabled: yes
     state: restarted
+    daemon_reload: yes
