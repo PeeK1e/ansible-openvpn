@@ -1,4 +1,4 @@
-- name: If python is not installed, install it
+- name: If Python is not installed, install it
   hosts: VPN
   become: true
   gather_facts: no

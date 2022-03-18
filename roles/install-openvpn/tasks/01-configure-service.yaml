@@ -6,9 +6,15 @@
     owner: root
     mode: 0744
 
+- name: Check if PKI files exist
+  stat:
+    path: /etc/openvpn/server/easy-rsa/pki
+  register: pki_files
+
 - name: Create RSA Certs
   become: true
   raw: /bin/bash /tmp/create-certificate.sh
+  when: not pki_files.stat.exists
 
 - name: Create DH Parameters
   template:
@@ -16,6 +22,7 @@
     dest: /etc/openvpn/server/dh.pem
     owner: root
     mode: 0644
+  when: not pki_files.stat.exists
 
 - name: Create basic OpenVPN Server Config
   template:
