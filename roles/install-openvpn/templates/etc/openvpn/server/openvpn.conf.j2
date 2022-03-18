@@ -14,10 +14,12 @@ auth SHA512
 tls-crypt tc.key
 topology subnet
 server {{ vpn.network.network }} {{ vpn.network.netmask }}
+{% if not enable_host_only_vpn %}
 push "redirect-gateway def1 bypass-dhcp"
-ifconfig-pool-persist ipp.txt
 push "dhcp-option DNS {{ vpn.primary_dns }}"
 push "dhcp-option DNS {{ vpn.secondary_dns }}"
+{% endif %}
+ifconfig-pool-persist ipp.txt
 keepalive 10 120
 cipher AES-256-CBC
 user nobody
