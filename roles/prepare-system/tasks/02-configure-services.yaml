@@ -12,6 +12,7 @@
     dest: /etc/hostname
     owner: root
     mode: 0644
+  when: network.hostname is defined and network.hostname | length > 0
 
 - name: Allow SSH ufw
   community.general.ufw:

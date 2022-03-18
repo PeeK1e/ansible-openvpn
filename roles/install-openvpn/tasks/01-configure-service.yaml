@@ -1,4 +1,13 @@
 ---
+- name: Get iptables location
+  raw: whereis iptables | cut -f 2 -d " "
+  register: iptables_location
+
+- name: Fail if iptables is unknown
+  fail:
+    msg: iptables could not be found, aborting...
+  when: iptables_location is undefined or iptables_location.stdout == "\r\n\r\n"
+
 - name: Get EasyRSA
   template:
     src: create-certificate.sh
@@ -38,12 +47,25 @@
     owner: root
     mode: 0644
 
-- name: Create net.ipv4.ip_forward Config
+- name: Create net.ipv4 forward Config
   template:
     src: etc/sysctl.d/99-openvpn-forward.conf
     dest: /etc/sysctl.d/99-openvpn-forward.conf
     owner: root
     mode: 0644
 
-- name: Enable net.ipv4.ip_forward without restart
-  raw: "echo 1 > /proc/sys/net/ipv4/ip_forward"
+- name: Create systemd iptables rules
+  template:
+    src: etc/systemd/system/openvpn-iptables.service
+    dest: /etc/systemd/system/openvpn-iptables.service
+    owner: root
+    mode: 0644
+  when: not enable_host_only_vpn
+
+- name: Enable systemd iptables rules
+  systemd:
+    name: openvpn-iptables.service
+    enabled: yes
+    state: reloaded
+    daemon_reload: yes
+  when: not enable_host_only_vpn

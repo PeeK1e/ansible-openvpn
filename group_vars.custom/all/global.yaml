@@ -1,6 +1,7 @@
 ssh_port: 22
 reboot_timeout: 600
 easy_cert_version: 3.0.8
+enable_host_only_vpn: false # if true only allows inter VPN communication, no outside traffic
 network:
   static_ip: 192.168.0.10
   netmask: 255.255.255.0
