@@ -2,12 +2,13 @@
 - name: Get EasyRSA
   template:
     src: create-certificate.sh
-    dst: /tmp/create-certificate.sh
+    dest: /tmp/create-certificate.sh
     owner: root
     mode: 0744
 
 - name: Create RSA Certs
-  raw: sh /tmp/create-certificate.sh
+  become: true
+  raw: /bin/bash /tmp/create-certificate.sh
 
 - name: Create DH Parameters
   template:
@@ -19,7 +20,7 @@
 - name: Create basic OpenVPN Server Config
   template:
     src: etc/openvpn/server/openvpn.conf
-    dest: /etc/openvpn/server/openvpn.conf
+    dest: /etc/openvpn/server/server.conf
     owner: root
     mode: 0644
 
