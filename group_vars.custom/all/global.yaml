@@ -17,4 +17,10 @@ vpn:
     network: 10.8.0.0
     netmask: 255.255.255.0
 clients: []
+#  - my
+#  - names
+#  - here
 clients_to_remove: []
+#  - my
+#  - names
+#  - here

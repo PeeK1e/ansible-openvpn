@@ -2,3 +2,5 @@
 - import_playbook: type_install_base.yaml
 
 - import_playbook: type_install_openvpn.yaml
+
+- import_playbook: type_create_client.yaml

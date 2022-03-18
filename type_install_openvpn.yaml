@@ -9,3 +9,5 @@
       action: 01-configure-service
     - role: install-openvpn
       action: 02-reload-service
+    - role: prepare-system
+      action: 05-reboot-machines
