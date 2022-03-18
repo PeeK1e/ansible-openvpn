@@ -1,7 +1,18 @@
+ssh_port: 22
+reboot_timeout: 600
 network:
-  static_ip: ""
-  gateway: ""
-  hostname: ""
-  netmask: ""
-ssh_port: ""
-reboot_timeout: ""
+  static_ip: 192.168.0.10
+  netmask: 255.255.255.0
+  gateway: 192.168.0.1
+  hostname: "OpenVPNServer"
+vpn:
+  default_client_name: default
+  public_hostname: "" # your.doma.in
+  protocol: udp
+  port: 1194
+  primary_dns: 1.1.1.1
+  secondary_dns: 1.0.0.1
+  network:
+    network: 10.8.0.0
+    netmask: 255.255.255.0
+

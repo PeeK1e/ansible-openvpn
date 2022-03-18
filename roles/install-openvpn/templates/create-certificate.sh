@@ -1,0 +1,25 @@
+#!/bin/bash
+# Source of this script https://github.com/Nyr/openvpn-install/blob/master/openvpn-install.sh
+# Get easy-rsa
+easy_rsa_url='https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.8/EasyRSA-3.0.8.tgz'
+mkdir -p /etc/openvpn/server/easy-rsa/
+{ wget -qO- "$easy_rsa_url" 2>/dev/null || curl -sL "$easy_rsa_url" ; } | tar xz -C /etc/openvpn/server/easy-rsa/ --strip-components 1
+chown -R root:root /etc/openvpn/server/easy-rsa/
+cd /etc/openvpn/server/easy-rsa/ || {
+    echo "Can't Enter Directory..."
+    exit 1
+}
+# Create the PKI, set up the CA and the server and client certificates
+./easyrsa init-pki
+./easyrsa --batch build-ca nopass
+EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-server-full server nopass
+EASYRSA_CERT_EXPIRE=3650 ./easyrsa build-client-full "{{ vpn.default_client_name }}" nopass
+EASYRSA_CRL_DAYS=3650 ./easyrsa gen-crl
+# Move the stuff we need
+cp pki/ca.crt pki/private/ca.key pki/issued/server.crt pki/private/server.key pki/crl.pem /etc/openvpn/server
+# CRL is read with each client connection, while OpenVPN is dropped to nobody
+chown nobody:nogroup /etc/openvpn/server/crl.pem
+# Without +x in the directory, OpenVPN can't run a stat() on the CRL file
+chmod o+x /etc/openvpn/server/
+# Generate key for tls-crypt
+openvpn --genkey --secret /etc/openvpn/server/tc.key

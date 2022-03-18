@@ -1,0 +1,14 @@
+client
+dev tun
+proto {{ vpn.protocol }}
+remote {% if vpn.public_hostname is defined and vpn.public_hostname | length > 0 %} {{ vpn.public_hostname }} {% else %} {{ network.static_ip }} {% endif %} {{ vpn.port }}
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+auth SHA512
+cipher AES-256-CBC
+ignore-unknown-option block-outside-dns
+block-outside-dns
+verb 3

@@ -1,5 +1,9 @@
 ---
 - name: Install Openvpn
   apt:
+    autoclean: true
+    autoremove: true
     name:
       - "openvpn"
+      - "openssl"
+      - "ca-certificates"

@@ -18,6 +18,11 @@
 
 - name: Install Openvpn
   hosts: VPN
+  become: true
   roles:
     - role: install-openvpn
       action: 00-install-openvpn
+    - role: install-openvpn
+      action: 01-configure-service
+    - role: install-openvpn
+      action: 02-reload-service

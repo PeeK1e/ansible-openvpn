@@ -1,0 +1,41 @@
+---
+- name: Get EasyRSA
+  template:
+    src: create-certificate.sh
+    dst: /tmp/create-certificate.sh
+    owner: root
+    mode: 0744
+
+- name: Create RSA Certs
+  raw: sh /tmp/create-certificate.sh
+
+- name: Create DH Parameters
+  template:
+    src: etc/openvpn/server/dh-parameter.pem
+    dest: /etc/openvpn/server/dh.pem
+    owner: root
+    mode: 0644
+
+- name: Create basic OpenVPN Server Config
+  template:
+    src: etc/openvpn/server/openvpn.conf
+    dest: /etc/openvpn/server/openvpn.conf
+    owner: root
+    mode: 0644
+
+- name: Create Client OpenVPN Config
+  template:
+    src: etc/openvpn/server/client-common.txt
+    dest: /etc/openvpn/server/client-common.txt
+    owner: root
+    mode: 0644
+
+- name: Create net.ipv4.ip_forward Config
+  template:
+    src: etc/sysctl.d/99-openvpn-forward.conf
+    dest: /etc/sysctl.d/99-openvpn-forward.conf
+    owner: root
+    mode: 0644
+
+- name: Enable net.ipv4.ip_forward without restart
+  raw: "echo 1 > /proc/sys/net/ipv4/ip_forward"

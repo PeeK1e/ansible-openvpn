@@ -1,5 +1,7 @@
 ---
 - name: Install Software
   apt:
+    autoclean: true
+    autoremove: true
     name:
       - "ufw"
