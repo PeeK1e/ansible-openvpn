@@ -4,3 +4,4 @@ network:
   hostname: ""
   netmask: ""
 ssh_port: ""
+reboot_timeout: ""

@@ -1,8 +1,5 @@
 ---
-- name: ping
-  ping:
-
-#- name: Install Openvpn
-#  apt:
-#    name:
-#      - "openvpn"
+- name: Install Openvpn
+  apt:
+    name:
+      - "openvpn"

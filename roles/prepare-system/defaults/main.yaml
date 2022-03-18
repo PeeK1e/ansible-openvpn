@@ -1,6 +1,7 @@
 network:
-  static_ip: 192.168.178.11
+  static_ip: 192.168.178.10
   netmask: 255.255.255.0
   gateway: 192.168.178.1
   hostname: "OpenVPNServer"
 ssh_port: 2222
+reboot_timeout: 600
