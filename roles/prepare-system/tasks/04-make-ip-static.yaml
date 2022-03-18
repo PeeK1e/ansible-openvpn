@@ -5,7 +5,7 @@
 
 - name: Set Static IP
   template:
-    src: etc/network/interfaces
+    src: etc/network/interfaces.j2
     dest: /etc/network/interfaces
     owner: root
     mode: 0644

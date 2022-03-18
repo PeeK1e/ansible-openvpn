@@ -10,7 +10,7 @@
 
 - name: Get EasyRSA
   template:
-    src: create-certificate.sh
+    src: create-certificate.sh.j2
     dest: /tmp/create-certificate.sh
     owner: root
     mode: 0744
@@ -27,7 +27,7 @@
 
 - name: Create DH Parameters
   template:
-    src: etc/openvpn/server/dh-parameter.pem
+    src: etc/openvpn/server/dh-parameter.pem.j2
     dest: /etc/openvpn/server/dh.pem
     owner: root
     mode: 0644
@@ -35,20 +35,20 @@
 
 - name: Create basic OpenVPN Server Config
   template:
-    src: etc/openvpn/server/openvpn.conf
+    src: etc/openvpn/server/openvpn.conf.j2
     dest: /etc/openvpn/server/server.conf
     owner: root
     mode: 0644
 
 - name: Create Client OpenVPN Config
   template:
-    src: etc/openvpn/server/client-common.txt
+    src: etc/openvpn/server/client-common.txt.j2
     dest: /etc/openvpn/server/client-common.txt
     owner: root
     mode: 0644
 
 - name: Create net.ipv4 forward Config
-  template:
+  copy:
     src: etc/sysctl.d/99-openvpn-forward.conf
     dest: /etc/sysctl.d/99-openvpn-forward.conf
     owner: root
@@ -56,7 +56,7 @@
 
 - name: Create systemd iptables rules
   template:
-    src: etc/systemd/system/openvpn-iptables.service
+    src: etc/systemd/system/openvpn-iptables.service.j2
     dest: /etc/systemd/system/openvpn-iptables.service
     owner: root
     mode: 0644

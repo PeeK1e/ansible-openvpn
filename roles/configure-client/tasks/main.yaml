@@ -1,7 +1,7 @@
 ---
 - name: Copy Script
   template:
-    src: create-client.sh
+    src: create-client.sh.j2
     dest: /tmp/create-client.sh
     owner: root
     mode: 0744
