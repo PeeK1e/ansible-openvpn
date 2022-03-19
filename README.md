@@ -21,9 +21,7 @@ ansible-playbook -i inventory --private-key=/path/to/your/sshkey type_full_insta
 ### Adding Clients
 If you have specified any clients in the `group_vars/all/global.yaml` they will be automatically created if you install for the first time.
 
-If you already have installed the system and just want to add clients, remove any clients from the list in the `group_vars/all/global.yaml`, add the new clients to the list and execute the playbook `type_create_client.yaml`
-
-#### TO-DO Skip already existing clients
+If you already have installed the system and just want to add clients, modify the `group_vars/all/global.yaml`, add the new clients to the list and execute the playbook `type_create_client.yaml`
 
 ### Removing Clients
 #### TO-DO
