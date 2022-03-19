@@ -3,8 +3,8 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-allow-hotplug enp0s3
-iface enp0s3 inet static
+allow-hotplug {{ interface_name.stdout_lines[0] }}
+iface {{ interface_name.stdout_lines[0] }} inet static
     address {{ network.static_ip }}
     netmask {{ network.netmask }}
     gateway {{ network.gateway }}
