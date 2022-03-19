@@ -21,16 +21,14 @@ ifconfig-pool {{ vpn.network.dhcp_min }} {{ vpn.network.dhcp_max }} {{ vpn.netwo
 client-config-dir ccd
 ifconfig-pool-persist ipp.txt 0
 
-{% if allow_client_to_client %}
-client-to-client
-{% endif %}
-
-{% if not enable_host_only_vpn %}
+{% if not enable_vpn_only_communication %}
 push "route-gateway {{ vpn.network.gateway }}"
 push "redirect-gateway def1 bypass-dhcp"
 push "dhcp-option DNS {{ vpn.primary_dns }}"
 push "dhcp-option DNS {{ vpn.secondary_dns }}"
 {% else %}
+# this will only allow client to client communication inside the vpn
+client-to-client
 push "route {{ vpn.network.network }}/{{ vpn.network.netmask }}"
 {% endif %}
 
