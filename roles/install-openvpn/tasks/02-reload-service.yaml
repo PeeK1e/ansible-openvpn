@@ -1,11 +1,14 @@
 ---
+- name: Enable IPv4 forward without reboot
+  shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+
 - name: Enable systemd iptables rules
   systemd:
     name: openvpn-iptables.service
     enabled: yes
     state: restarted
     daemon_reload: yes
-  when: not enable_host_only_vpn
+  when: not enable_vpn_only_communication
 
 - name: Restart OpenVPN Server
   systemd:
