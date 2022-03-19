@@ -2,14 +2,14 @@
 Before=network.target
 [Service]
 Type=oneshot
-ExecStart={{ iptables_location.stdout_lines[1] }} -t nat -A POSTROUTING -s {{ vpn.network.network }}/{{ vpn.network.netmask }} ! -d {{ vpn.network.network }}/{{ vpn.network.netmask }} -j SNAT --to {{ network.static_ip }}
-ExecStart={{ iptables_location.stdout_lines[1] }} -I INPUT -p {{ vpn.protocol }} --dport {{ vpn.port }} -j ACCEPT
-ExecStart={{ iptables_location.stdout_lines[1] }} -I FORWARD -s {{ vpn.network.network }}/{{ vpn.network.netmask }} -j ACCEPT
-ExecStart={{ iptables_location.stdout_lines[1] }} -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
-ExecStop={{ iptables_location.stdout_lines[1] }} -t nat -D POSTROUTING -s {{ vpn.network.network }}/{{ vpn.network.netmask }} ! -d {{ vpn.network.network }}/{{ vpn.network.netmask }} -j SNAT --to {{ network.static_ip }}
-ExecStop={{ iptables_location.stdout_lines[1] }} -D INPUT -p {{ vpn.protocol }} --dport {{ vpn.port }} -j ACCEPT
-ExecStop={{ iptables_location.stdout_lines[1] }} -D FORWARD -s {{ vpn.network.network }}/{{ vpn.network.netmask }} -j ACCEPT
-ExecStop={{ iptables_location.stdout_lines[1] }} -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+ExecStart={{ iptables_location.stdout }} -t nat -A POSTROUTING -s {{ vpn.network.network }}/{{ vpn.network.netmask }} ! -d {{ vpn.network.network }}/{{ vpn.network.netmask }} -j SNAT --to {{ network.static_ip }}
+ExecStart={{ iptables_location.stdout }} -I INPUT -p {{ vpn.protocol }} --dport {{ vpn.port }} -j ACCEPT
+ExecStart={{ iptables_location.stdout }} -I FORWARD -s {{ vpn.network.network }}/{{ vpn.network.netmask }} -j ACCEPT
+ExecStart={{ iptables_location.stdout }} -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+ExecStop={{ iptables_location.stdout }} -t nat -D POSTROUTING -s {{ vpn.network.network }}/{{ vpn.network.netmask }} ! -d {{ vpn.network.network }}/{{ vpn.network.netmask }} -j SNAT --to {{ network.static_ip }}
+ExecStop={{ iptables_location.stdout }} -D INPUT -p {{ vpn.protocol }} --dport {{ vpn.port }} -j ACCEPT
+ExecStop={{ iptables_location.stdout }} -D FORWARD -s {{ vpn.network.network }}/{{ vpn.network.netmask }} -j ACCEPT
+ExecStop={{ iptables_location.stdout }} -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target

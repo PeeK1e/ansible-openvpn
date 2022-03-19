@@ -7,7 +7,7 @@
     mode: 0740
 
 - name: Create Client Certificates
-  raw: /bin/bash /tmp/create-client.sh "{{ item.name }}"
+  shell: /bin/bash /tmp/create-client.sh "{{ item.name }}"
   loop: "{{ clients }}"
   when: clients is defined and clients | length > 0
 

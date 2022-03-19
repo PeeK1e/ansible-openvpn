@@ -2,13 +2,13 @@ ssh_port: 22
 reboot_timeout: 600
 easy_cert_version: 3.0.8
 enable_host_only_vpn: false # if true only allows inter VPN communication, no outside traffic
+allow_client_to_client: true # set to false to disallow clients communicating on the server
 network:
   static_ip: 192.168.0.10
   netmask: 255.255.255.0
   gateway: 192.168.0.1
   hostname: "OpenVPNServer"
 vpn:
-  default_client_name: default
   public_hostname: "" # your.doma.in
   protocol: udp
   port: 1194

@@ -1,6 +1,6 @@
 ---
 - name: Retrieve Interface Name
-  raw: "ip -4 -f inet -br link | head -n2 | tail +2 | cut -f 1 -d \" \""
+  shell: "ip -4 -f inet -br link | head -n2 | tail +2 | cut -f 1 -d \" \""
   register: interface_name
 
 - name: Set Static IP

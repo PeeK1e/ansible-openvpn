@@ -1,12 +1,12 @@
 ---
 - name: Get iptables location
-  raw: whereis iptables | cut -f 2 -d " "
+  shell: whereis iptables | cut -f 2 -d " "
   register: iptables_location
 
 - name: Fail if iptables is unknown
   fail:
     msg: iptables could not be found, aborting...
-  when: iptables_location is undefined or iptables_location.stdout == "\r\n\r\n"
+  when: iptables_location is undefined or iptables_location.stdout | length == 0
 
 - name: Get EasyRSA
   template:
@@ -22,7 +22,7 @@
 
 - name: Create RSA Certs
   become: true
-  raw: /bin/bash /tmp/create-certificate.sh
+  shell: /bin/bash /tmp/create-certificate.sh
   when: not pki_files.stat.exists
 
 - name: Create DH Parameters
@@ -62,4 +62,4 @@
   when: not enable_host_only_vpn
 
 - name: Make ccd directory
-  raw: mkdir -p /etc/openvpn/server/ccd
+  shell: mkdir -p /etc/openvpn/server/ccd
