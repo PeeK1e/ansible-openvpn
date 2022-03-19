@@ -1,6 +1,6 @@
 ---
 - name: Copy Script
-  template:
+  copy:
     src: create-client.sh.j2
     dest: /tmp/create-client.sh
     owner: root
