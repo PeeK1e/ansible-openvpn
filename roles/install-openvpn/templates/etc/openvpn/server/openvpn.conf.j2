@@ -1,8 +1,4 @@
-{% if vpn.public_hostname is defined and vpn.public_hostname | length > 0 %}
-local {{ vpn.public_hostname }}
-{% else %} 
 local {{ network.static_ip }}
-{% endif %}
 port {{ vpn.port }}
 proto {{ vpn.protocol }}
 dev tun
