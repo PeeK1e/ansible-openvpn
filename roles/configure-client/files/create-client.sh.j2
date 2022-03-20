@@ -22,4 +22,4 @@ echo "</key>"
 echo "<tls-crypt>"
 sed -ne '/BEGIN OpenVPN Static key/,$ p' /etc/openvpn/server/tc.key
 echo "</tls-crypt>"
-} > ~/"$1".ovpn
+} > /root/"$1".ovpn
