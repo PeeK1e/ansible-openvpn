@@ -20,5 +20,5 @@
       action: 03-reload-services
     - role: prepare-system
       action: 04-make-ip-static
-    #- role: prepare-system
-    #  action: 05-reboot-machines
+    - role: prepare-system
+      action: 05-reboot-machines
