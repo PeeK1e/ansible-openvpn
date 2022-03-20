@@ -3,8 +3,13 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
+{% if network_interface_name is defined and network_interface_name | length > 0 %}
+allow-hotplug {{ network_interface_name }}
+iface {{ network_interface_name }} inet static
+{% else %}
 allow-hotplug {{ interface_name.stdout }}
 iface {{ interface_name.stdout }} inet static
+{% endif %}
     address {{ network.static_ip }}
     netmask {{ network.netmask }}
     gateway {{ network.gateway }}
