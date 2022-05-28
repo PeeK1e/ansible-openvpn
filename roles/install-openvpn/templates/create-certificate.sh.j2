@@ -23,4 +23,4 @@ chown nobody:nogroup /etc/openvpn/server/crl.pem
 # Without +x in the directory, OpenVPN can't run a stat() on the CRL file
 chmod o+x /etc/openvpn/server/
 # Generate key for tls-crypt
-openvpn --genkey secret /etc/openvpn/server/tc.key
+openvpn --genkey --secret /etc/openvpn/server/tc.key
