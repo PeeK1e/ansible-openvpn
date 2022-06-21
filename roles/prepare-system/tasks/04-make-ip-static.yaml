@@ -2,6 +2,7 @@
 - name: Retrieve Interface Name
   shell: "ip -4 -f inet -br link | head -n2 | tail +2 | cut -f 1 -d \" \""
   register: interface_name
+  when: network.changeIPSettings
 
 - name: Set Static IP
   template:
@@ -9,3 +10,4 @@
     dest: /etc/network/interfaces
     owner: root
     mode: 0644
+  when: network.changeIPSettings

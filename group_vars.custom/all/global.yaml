@@ -4,6 +4,7 @@ easy_cert_version: 3.0.8
 enable_vpn_only_communication: false # if true only allows only inter VPN communication, no outside traffic
 network_interface_name: "" #you may define a network interface here, if none is defined the script tries to automatically detect one 
 network:
+  changeIPSettings: true
   static_ip: 192.168.0.10
   netmask: 255.255.255.0
   gateway: 192.168.0.1
