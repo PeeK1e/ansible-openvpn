@@ -1,6 +1,9 @@
 ---
-- import_playbook: type_install_base.yaml
+- name: Install Base System
+  import_playbook: type_install_base.yaml
 
-- import_playbook: type_install_openvpn.yaml
+- name: Install OpenVPN
+  import_playbook: type_install_openvpn.yaml
 
-- import_playbook: type_create_client.yaml
+- name: Setup Cients
+  import_playbook: type_create_client.yaml

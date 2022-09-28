@@ -2,9 +2,10 @@
 - name: If Python is not installed, install it
   hosts: VPN
   become: true
-  gather_facts: no
+  gather_facts: false
   pre_tasks:
-    - raw: test -e /bin/python3 || apt-get install python3 -y
+    - name: Install Python if not installed
+      ansible.builtin.raw: test -e /bin/python3 || apt-get install python3 -y
 
 - name: Prepare System
   hosts: VPN
