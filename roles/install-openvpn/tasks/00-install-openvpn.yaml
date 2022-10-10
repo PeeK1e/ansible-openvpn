@@ -1,6 +1,6 @@
 ---
 - name: Install Openvpn
-  apt:
+  ansible.builtin.apt:
     autoclean: true
     autoremove: true
     name:

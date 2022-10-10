@@ -1,60 +1,60 @@
 ---
 - name: Get iptables location
-  shell: whereis iptables | cut -f 2 -d " "
+  ansible.builtin.shell: whereis iptables | cut -f 2 -d " "
   register: iptables_location
 
 - name: Fail if iptables is unknown
-  fail:
+  ansible.builtin.fail:
     msg: iptables could not be found, aborting...
   when: iptables_location is undefined or iptables_location.stdout | length == 0
 
 - name: Get EasyRSA
-  template:
+  ansible.builtin.template:
     src: create-certificate.sh.j2
     dest: /tmp/create-certificate.sh
     owner: root
     mode: 0744
 
 - name: Check if PKI files exist
-  stat:
+  ansible.builtin.stat:
     path: /etc/openvpn/server/easy-rsa/pki
   register: pki_files
 
 - name: Create RSA Certs
   become: true
-  shell: /bin/bash /tmp/create-certificate.sh
+  ansible.builtin.shell: /bin/bash /tmp/create-certificate.sh
   when: not pki_files.stat.exists
 
 - name: Create DH Parameters
-  template:
+  ansible.builtin.template:
     src: etc/openvpn/server/dh-parameter.pem.j2
     dest: /etc/openvpn/server/dh.pem
     owner: root
     mode: 0644
 
 - name: Create basic OpenVPN Server Config
-  template:
+  ansible.builtin.template:
     src: etc/openvpn/server/openvpn.conf.j2
     dest: /etc/openvpn/server/server.conf
     owner: root
     mode: 0644
 
 - name: Create Client OpenVPN Config
-  template:
+  ansible.builtin.template:
     src: etc/openvpn/server/client-common.txt.j2
     dest: /etc/openvpn/server/client-common.txt
     owner: root
     mode: 0644
 
 - name: Create net.ipv4 forward Config
-  copy:
+  ansible.builtin.copy:
     src: etc/sysctl.d/99-openvpn-forward.conf
     dest: /etc/sysctl.d/99-openvpn-forward.conf
     owner: root
     mode: 0644
 
 - name: Create systemd iptables rules
-  template:
+  ansible.builtin.template:
     src: etc/systemd/system/openvpn-iptables.service.j2
     dest: /etc/systemd/system/openvpn-iptables.service
     owner: root
@@ -62,4 +62,4 @@
   when: not enable_vpn_only_communication
 
 - name: Make ccd directory
-  shell: mkdir -p /etc/openvpn/server/ccd
+  ansible.builtin.shell: mkdir -p /etc/openvpn/server/ccd

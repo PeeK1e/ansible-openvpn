@@ -1,17 +1,17 @@
 ---
 - name: Reboot Machine
-  reboot:
+  ansible.builtin.reboot:
     reboot_timeout: 1
   ignore_errors: true
 
 - name: Set new Machine IP locally
-  set_fact:
+  ansible.builtin.set_fact:
     ansible_host: "{{ network.static_ip }}"
 
 - name: Wait for Machine to be back Online
   connection: local
   become: false
-  wait_for:
+  ansible.builtin.wait_for:
     host: "{{ ansible_host }}"
     port: "{{ ssh_port }}"
     state: started

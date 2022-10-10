@@ -1,10 +1,10 @@
 ---
 - name: Check System
-  fail:
+  ansible.builtin.fail:
     msg: Only Debian is supported by this Playbook
   when: ansible_distribution != 'Debian'
 
 - name: Update System
-  apt:
-    update_cache: yes
+  ansible.builtin.apt:
+    update_cache: true
     upgrade: full

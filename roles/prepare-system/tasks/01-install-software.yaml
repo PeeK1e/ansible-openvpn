@@ -1,6 +1,6 @@
 ---
 - name: Install Software
-  apt:
+  ansible.builtin.apt:
     autoclean: true
     autoremove: true
     name:

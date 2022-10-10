@@ -1,18 +1,18 @@
 ---
 - name: Enable IPv4 forward without reboot
-  shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+  ansible.builtin.shell: echo 1 > /proc/sys/net/ipv4/ip_forward
 
 - name: Enable systemd iptables rules
-  systemd:
+  ansible.builtin.systemd:
     name: openvpn-iptables.service
-    enabled: yes
+    enabled: true
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true
   when: not enable_vpn_only_communication
 
 - name: Restart OpenVPN Server
-  systemd:
+  ansible.builtin.systemd:
     name: openvpn-server@server.service
-    enabled: yes
+    enabled: true
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true

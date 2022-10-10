@@ -1,29 +1,30 @@
 ---
 - name: Copy Script
-  copy:
+  ansible.builtin.copy:
     src: create-client.sh.j2
     dest: /tmp/create-client.sh
     owner: root
     mode: 0740
 
 - name: Create Client Certificates
-  shell: /bin/bash /tmp/create-client.sh "{{ item.name }}"
+  ansible.builtin.shell: /bin/bash /tmp/create-client.sh "{{ item.name }}"
   loop: "{{ clients }}"
   when: clients is defined and clients | length > 0
 
 - name: Create Static Client IPs
+  when: clients is defined and clients | length > 0
   block:
-    - template:
+    - name: Creating Static IPs
+      ansible.builtin.template:
         src: etc/openvpn/server/ccd/static-client-conf.j2
         dest: /etc/openvpn/server/ccd/{{ item.name }}
         owner: root
         mode: 0644
       loop: "{{ clients }}"
       when: item.ip is defined and item.ip | length > 0
-  when: clients is defined and clients | length > 0
 
 - name: Retrieve Files
-  fetch:
+  ansible.builtin.fetch:
     dest: openvpn-clients
     src: /root/{{ item.name }}.ovpn
   loop: "{{ clients }}"

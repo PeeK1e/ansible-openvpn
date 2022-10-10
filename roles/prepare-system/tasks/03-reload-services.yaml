@@ -4,19 +4,19 @@
     logging: 'on'
 
 - name: Reload sshd
-  systemd:
+  ansible.builtin.systemd:
     name: sshd
-    enabled: yes
+    enabled: true
     state: reloaded
 
 - name: Update SSH Port
-  set_fact:
+  ansible.builtin.set_fact:
     ansible_port: "{{ ssh_port }}"
 
 - name: Systemd enable UFW
-  systemd:
+  ansible.builtin.systemd:
     name: ufw
-    enabled: yes
+    enabled: true
     state: restarted
 
 - name: Enable UFW

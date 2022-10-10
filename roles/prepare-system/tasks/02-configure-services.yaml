@@ -1,13 +1,13 @@
 ---
 - name: Copy SSH config
-  template:
+  ansible.builtin.template:
     src: ssh.conf.j2
     dest: /etc/ssh/sshd_config.d/sshd.conf
     owner: root
     mode: 0644
 
 - name: Set Hostname
-  template:
+  ansible.builtin.template:
     src: etc/hostname.j2
     dest: /etc/hostname
     owner: root
