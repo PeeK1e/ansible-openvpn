@@ -1,11 +1,17 @@
 ---
 - name: Retrieve Interface Name
-  shell: "ip -4 -f inet -br link | head -n2 | tail +2 | cut -f 1 -d \" \""
+  ansible.builtin.shell: 'ip -4 -f inet -br link | head -n2 | tail +2 | cut -f 1 -d " "'
   register: interface_name
   when: network.changeIPSettings
 
+- name: Add Hostname to /etc/hosts
+  ansible.builtin.lineinfile:
+    path: '/etc/hosts'
+    line: "{% if network.changeIPSettings %}{{ network.static }}{% else %}{{ ansible_default_ipv4.address }}{% endif %} {{ network.hostname }}"
+
+
 - name: Set Static IP
-  template:
+  ansible.builtin.template:
     src: etc/network/interfaces.j2
     dest: /etc/network/interfaces
     owner: root
