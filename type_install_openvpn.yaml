@@ -4,6 +4,8 @@
   become: true
   roles:
     - role: install-openvpn
+      action: 00-gather-facts
+    - role: install-openvpn
       action: 00-install-openvpn
     - role: install-openvpn
       action: 01-configure-service

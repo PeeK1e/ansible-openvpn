@@ -1,0 +1,11 @@
+---
+- name: Retrieve default IPv4 address
+  ansible.builtin.set_fact:
+    default_ipv4: "{{ ansible_default_ipv4.address }}"
+
+- name: Set IP correct if changeIPSettings is false
+  connection: local
+  ansible.builtin.set_fact:
+    network:
+      static_ip: "{{ default_ipv4 }}"
+  when: network.changeIPSettings is false
