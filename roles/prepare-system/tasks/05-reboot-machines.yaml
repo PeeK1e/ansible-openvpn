@@ -7,11 +7,13 @@
 - name: Set new Machine IP locally
   ansible.builtin.set_fact:
     ansible_host: "{{ network.static_ip }}"
+  when: network.changeIPSettings is true
 
 - name: Wait for Machine to be back Online
   connection: local
   become: false
   ansible.builtin.wait_for:
+    delay: 15
     host: "{{ ansible_host }}"
     port: "{{ ssh_port }}"
     state: started
