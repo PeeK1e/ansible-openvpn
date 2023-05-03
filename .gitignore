@@ -2,3 +2,4 @@ inventory
 group_vars/
 .idea
 openvpn-clients/
+!samples/**
